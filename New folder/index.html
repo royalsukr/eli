@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <title>Yapılacaklar Listesi</title>
+    <style>
+
+
+        body {
+            font-family: "Roboto", sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .dark-mode {
+            background-color: black;
+            color: white;
+        }
+
+        ul.navbar {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        ul.navbar li {
+            float: left;
+        }
+
+        ul.navbar li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        ul.navbar li a:hover {
+            background-color: #111;
+        }
+
+        .toggle-container {
+            position: fixed;
+            width: 100%;
+            top: 50px; /* Navbar yüksekliği kadar boşluk bırak */
+            left: 0;
+            background-color: #fff; /* Arka plan rengi */
+            padding: 10px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+            z-index: 999; /* Navbar'dan hemen sonra gelmesini sağlar */
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 100px); /* Navbar ve toggle container yüksekliğini çıkar */
+            margin-top: 10px; /* Toggle container'ının yüksekliği kadar üstten boşluk bırak */
+        }
+
+        #todoList {
+            list-style-type: none;
+            padding: 0;
+            width: 80%;
+            max-width: 500px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        #todoList li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #todoList li:last-child {
+            border-bottom: none;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+            width: 60%;
+        }
+    </style>
+</head>
+<body>
+    <ul class="navbar">
+        <li><a src class="active" href="index.html">Daily Work</a></li>
+        <li><a  href="gubluktest.html">gunluk test</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about">About</a></li>
+        
+    </ul>
+
+    <div class="toggle-container">
+        <button onclick="myFunction()">Toggle dark mode</button>
+    </div>
+
+    <div class="container">
+        <div>
+            <div>
+                <input type="text" id="todoInput" placeholder="Yapılacak iş ekleyin..." />
+                <button id="addButton">Ekle</button>
+            </div>
+            <ul id="todoList"></ul>
+        </div>
+    </div>
+
+    <script>
+        function myFunction() {
+            document.body.classList.toggle("dark-mode");
+        }
+
+        document.getElementById('addButton').addEventListener('click', function() {
+            const input = document.getElementById('todoInput');
+            const item = input.value.trim(); // Boşlukları temizle
+            if (item === '') {
+                alert('Lütfen bir şeyler yazın.');
+                return;
+            }
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `${item} <button class="deleteButton">Sil</button>`;
+            document.getElementById('todoList').appendChild(listItem);
+            input.value = ''; // Giriş alanını temizle
+        });
+
+        document.getElementById('todoList').addEventListener('click', function(event) {
+            if (event.target && event.target.classList.contains('deleteButton')) {
+                const listItem = event.target.parentElement;
+                listItem.remove();
+            }
+        });
+    </script>
+
+
+</body>
+</html>
